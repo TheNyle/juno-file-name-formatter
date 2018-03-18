@@ -30,7 +30,7 @@ If the download package contains sub-directories, these will also be automatical
 ### To Do List:
 
 - [X] Pass the script the .zip folder and automate unpacking
-- [ ] Automatically handle downloads with and without sub-directories
+- [X] Automatically handle downloads with and without sub-directories
 - [ ] Organise music into sub-folders based on album
 - [ ] Pass optional parameter of destination folder
 - [ ] Handle ampersands and special characters in names
