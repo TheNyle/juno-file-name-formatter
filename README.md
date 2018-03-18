@@ -12,7 +12,7 @@ Run this Bash script with the location of the downloaded folder full of music as
 
 to:
 ```
-1-Artist Name - Song Title.mp3
+1 Artist Name - Song Title.mp3
 ```
 
 
@@ -29,3 +29,10 @@ to:
 1. Modify the permissions on the script using `chmod +x fileRenamer.sh`
 
 1. Run the script with `./fileRenamer.sh [Paste folder pathname]`
+
+
+### To Do List:
+
+- [ ] Organise music into sub-folders based on album
+- [ ] Pass the script the .zip folder and automate unpacking
+- [ ] Pass optional second parameter of destination folder
