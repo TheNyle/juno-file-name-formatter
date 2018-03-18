@@ -12,7 +12,7 @@ Run this Bash script with the location of the downloaded folder full of music as
 
 to:
 ```
-1 Artist Name - Song Title.mp3
+1-Artist Name - Song Title.mp3
 ```
 
 
