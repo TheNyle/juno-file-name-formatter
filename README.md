@@ -18,21 +18,17 @@ to:
 
 ### Running the script:
 
-1. Download music from [Juno Download](https://www.junodownload.com/)
+1. Download music from [Juno Download](https://www.junodownload.com/) and leave the `.zip` file in the default `Downloads` folder.
 
-1. Unzip the folder containing all of the `.mp3` files
+1. Navigate to the directory this shell script has been cloned to
 
-1. [Option]-[right-click] the directory and [click] `Copy x as Pathname`
+1. Modify the permissions on the script using `chmod +x JunoFileFormatter.sh`
 
-1. Navigate to the directory this shell script is stored in 
-
-1. Modify the permissions on the script using `chmod +x fileRenamer.sh`
-
-1. Run the script with `./fileRenamer.sh [Paste folder pathname]`
+1. Run the script with `./JunoFileFormatter.sh`
 
 
 ### To Do List:
 
 - [ ] Organise music into sub-folders based on album
-- [ ] Pass the script the .zip folder and automate unpacking
-- [ ] Pass optional second parameter of destination folder
+- [X] Pass the script the .zip folder and automate unpacking
+- [ ] Pass optional parameter of destination folder
