@@ -1,13 +1,14 @@
 #!/bin/bash
 
+# Setup constants
 downloadsDirectory="/Users/$USER/Downloads"
+tempOutputDirectory="juno_downloads_formatted_temp"
 destinationDirectory="/Users/$USER/Dropbox/Music"
 zipFilePattern="juno_download_*.zip"
-outputDirectory="juno_downloads_formatted"
 zipFiles=($zipFilePattern) # This will match multiple zip files - Figure out how to just match the first
 
 # Loop through all files and format the names
-rename_files () {
+file_handler () {
   for file in *;
     do 
       echo "Renaming $file"
@@ -16,35 +17,65 @@ rename_files () {
 }
 
 # Loop through sub-directories and format the names
-rename_folders () {
-  for folder in *;
+sub_directories_handler () {
+  for subDirectory in *;
     do 
-      echo "Renaming sub-directory $folder"
-      cd $folder
-      rename_files 
+      cd $subDirectory
+      file_handler 
       cd ../
-      mv "$folder" "$(echo $folder | sed -e 's/_/ /g')";
+      echo "Renaming sub-directory $subDirectory"
+      mv "$subDirectory" "$(echo $subDirectory | sed -e 's/_/ /g')";
     done
 }
+
+# Open formatted file in the following applications
+open_formatted_files_in_apps () {
+  for formattedFile in *;
+    do 
+      echo "Opening $formattedFile in iTunes"
+      open -a "iTunes" "$formattedFile"
+    done
+}
+
+# Loop through formatted sub-directories and move them to destination
+move_formatted_sub_directories_to_output_directory () {
+  for formattedSubDirectory in *;
+    do 
+      echo "Moving $formattedSubDirectory to $destinationDirectory"
+      mv -v "$formattedSubDirectory" $destinationDirectory
+      cd $destinationDirectory/"$formattedSubDirectory"
+      open_formatted_files_in_apps
+    done
+}
+
+# Clean up generated files
+clean_up () {
+  rm -r $tempOutputDirectory
+  rm $zipFiles
+}
+
+# Begin process
 
 # Change to the Downloads directory
 cd $downloadsDirectory
 
-# Unzip file folder into the $outputDirectory
-unzip $zipFiles -d $outputDirectory
+# Unzip file folder into the $tempOutputDirectory
+unzip $zipFiles -d $tempOutputDirectory
 
-# Change directory to $outputDirectory
-cd $outputDirectory
+# Change directory to $tempOutputDirectory
+cd $tempOutputDirectory
 
-# Count the number of sub-directories in the $outputDirectory
-subdircount=`find $PWD -maxdepth 1 -type d | wc -l`
+# Count the number of sub-directories in the $tempOutputDirectory
+subDirectoryCount=`find $PWD -maxdepth 1 -type d | wc -l`
 
-# Check if the $outputDirectory contains sub-directories
-if [ $subdircount -gt 1 ];
+# Check if the $tempOutputDirectory contains sub-directories
+if [ $subDirectoryCount -gt 1 ];
   then 
     echo "This directory contains sub-directories"
-    rename_folders
+    sub_directories_handler
+    move_formatted_sub_directories_to_output_directory
+    clean_up
   else 
     echo "This directory does not contain any sub-directories"
-    rename_files
+    file_handler
 fi
