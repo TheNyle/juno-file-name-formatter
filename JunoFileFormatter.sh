@@ -41,12 +41,14 @@ open_formatted_files_in_apps () {
 move_formatted_sub_directories_to_output_directory () {
   for formattedSubDirectory in *;
     do 
+      returnDirectory="$PWD"
       echo "Moving $formattedSubDirectory to $destinationDirectory"
       mv -v "$formattedSubDirectory" $destinationDirectory
       cd $destinationDirectory/"$formattedSubDirectory"
       open_formatted_files_in_apps
+      cd $returnDirectory
     done
-}
+} 
 
 # Clean up generated files
 clean_up () {
