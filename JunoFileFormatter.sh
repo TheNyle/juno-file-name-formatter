@@ -52,6 +52,8 @@ move_formatted_sub_directories_to_output_directory () {
 
 # Clean up generated files
 clean_up () {
+  echo "Deleting files"
+  cd ../
   rm -r $tempOutputDirectory
   rm $zipFiles
 }
